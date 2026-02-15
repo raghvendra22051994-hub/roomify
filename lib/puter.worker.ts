@@ -27,7 +27,6 @@ router.post('/api/projects/save', async ({ request, user }) => {
         const body = await request.json();
         const project = body?.project;
 
-        if (!project?.id || project?.sourceImage) return jsonError(400, 'Project not found');
         if (!project?.id || !project?.sourceImage) return jsonError(400, 'Project ID and source image are required');
 
         const payload = {
@@ -55,7 +54,9 @@ router.get('/api/projects/list', async ({ user }) => {
         const userId = await getUserId(userPuter);
         if (!userId) return jsonError(401, 'Authentication failed');
 
-        const projects = await userPuter.kv.list(PROJECT_PREFIX, true).map(({ value }) => ({ ...value, isPublic: true }));
+        // const projects = await userPuter.kv.list(PROJECT_PREFIX, true).map(({ value }) => ({ ...value, isPublic: true }));
+        const projectList = await userPuter.kv.list(PROJECT_PREFIX, true);
+        const projects = projectList.map(({ value }) => ({ ...value, isPublic: true }));
 
         return { projects };
     } catch (e) {
