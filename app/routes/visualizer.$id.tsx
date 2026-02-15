@@ -133,7 +133,7 @@ const VisualizerId = () => {
                         <div className="panel-actions">
                             <Button
                                 size="sm"
-                                onClick={() => { handleExport }}
+                                onClick={handleExport}
                                 className="export"
                                 disabled={!currentImage}
                             >
