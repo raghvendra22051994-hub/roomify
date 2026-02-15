@@ -94,7 +94,7 @@ const VisualizerId = () => {
                             </div>
                         )}
 
-                        {!isProcessing && (
+                        {isProcessing && (
                             <div className="render-overlay">
                                 <div className="rendering-card">
                                     <RefreshCcw className="spinner" />
